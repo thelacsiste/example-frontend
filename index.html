@@ -89,17 +89,19 @@
 									<form ng-submit="submitComment()" >
 						    
 									    <div class="row">
-									      	<div class="input-field col s12 m12">
+									      	<div class="input-field text-darken-2 col s12 m12">
 								        	    <input type="text" id="author" class="validate" name="author" ng-model="commentData.author" >
-								        	    <label for="author">Auteur</label>
+								        	    <label for="author"><span style="color:red;">*</span> Auteur</label>
 											</div>
+							        	    <span class="red-text">{{ errors.author[0] }}</span>
 										</div>
 
 										<div class="row">
 										  	<div class="input-field col s12 m12">
 								        	    <textarea class="materialize-textarea" name="text" ng-model="commentData.text"></textarea>
-								        	    <label for="text">Commentaire</label>
+								        	    <label for="text"><span style="color:red;">*</span> Commentaire</label>
 								        	</div>
+								        	<span class="red-text">{{ errors.text[0] }}</span>
 										</div>
 
 										<div class="row">

@@ -2,7 +2,8 @@ angular.module('mainCtrl', ['ngSanitize', 'angularModalService'])
 
     .controller('mainController',['$scope', '$http', 'Comment', 'ModalService', function($scope, $http, Comment, ModalService) {
         $scope.commentData = {};
-        $scope.loading = true;
+        $scope.errors      = {};
+        $scope.loading     = true;
 
         Comment.get()
             .success(function(data) {
@@ -15,20 +16,20 @@ angular.module('mainCtrl', ['ngSanitize', 'angularModalService'])
 
             Comment.save($scope.commentData)
                 .success(function(data) {
-
-                    Comment.get()
-                        .success(function(getData) {
-                            $scope.comments = getData;
-                            $scope.loading = false;
-                        });
-
                     $scope.commentData = {};
                     toast('Commentaire ajouté', 4000);
-
                 })
                 .error(function(data) {
-                    console.log(data);
+                    $scope.errors = data;
+                    toast('Des erreurs sont survenues lors de la validation du formulaire', 4000);
                 });
+
+                Comment.get()
+                    .success(function(getData) {
+                        $scope.comments = getData;
+                        $scope.loading = false;
+                    });
+
         };
 
         $scope.deleteComment = function(id) {
